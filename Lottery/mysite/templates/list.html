@@ -1,0 +1,21 @@
+
+{% block title %}<title>1등 판매지점 리스트</title>{% endblock title %}
+
+{% block css %}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+{% endblock css %}
+
+{% block content %}
+<table class="table table-hover table-responsive">
+    <thead>
+        <th>상호명</th><th>소재지</th><th>1등 당첨횟수</th>
+    </thead>
+    <tbody>
+        {% for item in lottery_stores %}
+        <tr>
+            <td>{{ item.store_name }}</td><td>{{ item.location }}</td><td>{{ item.lottery_count }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

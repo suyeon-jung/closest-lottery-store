@@ -1,0 +1,60 @@
+<!--1. 사이트 이름-->
+<!--2. 사용자의 주소 입력 부분-->
+<!--3. 당첨횟수만을 기준으로 한 테이블-->
+{% load static %}
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>복권명당</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/cover.css' %}">
+
+<body class="text-center">
+<div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+    <header class="masthead mb-auto">
+        <div class="inner">
+            <nav class="nav nav-masthead justify-content-center">
+                <a class="nav-link active" style="text-decoration: none" href="/">처음으로</a>
+            </nav>
+        </div>
+    </header>
+
+    <main role="main" class="inner cover">
+        <h1 class="cover-heading">나와 가까운 복권 명당은?</h1>
+    </main>
+
+    <form action="/search/" method="post">
+        {% csrf_token %}
+        <input class="form-control" type="text" placeholder="본인의 주소를 입력하세요." style="text-align: center"
+               name="user_address" value="{{ user_address }}">
+        <input type="submit" value="검색">
+    </form>
+
+    {% block content %}
+    <table class="table table-bordered table-responsive" style="text-align: center;">
+        <thead style="color: #e38d13">
+        <th>상호명</th>
+        <th>소재지</th>
+        <th>1등 당첨횟수</th>
+        </thead>
+        <tbody>
+        {% for item in lottery_stores %}
+        <tr style="color: #e38d13">
+            <td>{{ item.store_name }}</td>
+            <td>{{ item.location }}</td>
+            <td>{{ item.lottery_count }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% endblock %}
+
+    <footer class="mastfoot mt-auto">
+        <div class="inner">
+            <p>This site is made by suyeon-jung.</p>
+        </div>
+    </footer>
+</div>
+</body>
+</html>
